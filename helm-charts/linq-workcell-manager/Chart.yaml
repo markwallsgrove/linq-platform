@@ -1,0 +1,17 @@
+apiVersion: v2
+name: linq-workcell-manager
+description: A Helm chart for LINQ Workcell Manager service
+type: application
+version: 0.1.0
+appVersion: "2.1.0"
+keywords:
+  - linq
+  - workcell
+  - manager
+  - microservice
+home: https://github.com/automata-tech/linq-workcell-manager
+sources:
+  - https://github.com/automata-tech/linq-workcell-manager
+maintainers:
+  - name: LINQ Platform Team
+    email: platform@automata-tech.com

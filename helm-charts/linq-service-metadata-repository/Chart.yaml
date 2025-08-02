@@ -1,0 +1,17 @@
+apiVersion: v2
+name: linq-service-metadata-repository
+description: A Helm chart for LINQ Service Metadata Repository
+type: application
+version: 0.1.0
+appVersion: "1.5.0"
+keywords:
+  - linq
+  - metadata
+  - repository
+  - microservice
+home: https://github.com/automata-tech/linq-service-metadata-repository
+sources:
+  - https://github.com/automata-tech/linq-service-metadata-repository
+maintainers:
+  - name: LINQ Platform Team
+    email: platform@automata-tech.com

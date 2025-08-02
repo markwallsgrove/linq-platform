@@ -1,0 +1,93 @@
+# LINQ Platform Deployment Status Overview
+# This file provides a consolidated view of all environment deployments
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deployment-status-overview
+  namespace: argocd
+  labels:
+    app: linq-platform
+    component: status-overview
+data:
+  status.json: |
+    {
+      "platform": {
+        "name": "LINQ Platform",
+        "version": "1.2.0",
+        "lastUpdated": "2024-02-01T16:45:00Z",
+        "totalEnvironments": 3,
+        "healthyEnvironments": 3
+      },
+      "environments": [
+        {
+          "name": "dev-env-1",
+          "type": "development",
+          "status": "running",
+          "health": "healthy",
+          "bundle": {
+            "version": "1.0.0",
+            "type": "development"
+          },
+          "cluster": "dev-cluster",
+          "namespace": "dev-env-1",
+          "services": {
+            "total": 8,
+            "healthy": 8,
+            "degraded": 0,
+            "failed": 0
+          },
+          "argocd": {
+            "syncStatus": "Synced",
+            "healthStatus": "Healthy",
+            "lastSync": "2024-02-01T14:30:00Z"
+          }
+        },
+        {
+          "name": "staging-env-1", 
+          "type": "staging",
+          "status": "running",
+          "health": "healthy",
+          "bundle": {
+            "version": "1.1.0",
+            "type": "staging"
+          },
+          "cluster": "staging-cluster",
+          "namespace": "staging-env-1",
+          "services": {
+            "total": 8,
+            "healthy": 8,
+            "degraded": 0,
+            "failed": 0
+          },
+          "argocd": {
+            "syncStatus": "Synced",
+            "healthStatus": "Healthy",
+            "lastSync": "2024-02-01T16:45:00Z"
+          }
+        },
+        {
+          "name": "production-env-1",
+          "type": "production", 
+          "status": "running",
+          "health": "healthy",
+          "bundle": {
+            "version": "1.2.0",
+            "type": "production"
+          },
+          "cluster": "production-cluster",
+          "namespace": "production-env-1",
+          "services": {
+            "total": 8,
+            "healthy": 8,
+            "degraded": 0,
+            "failed": 0
+          },
+          "argocd": {
+            "syncStatus": "Synced",
+            "healthStatus": "Healthy",
+            "lastSync": "2024-02-01T12:15:00Z"
+          }
+        }
+      ]
+    }

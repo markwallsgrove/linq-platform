@@ -1,0 +1,119 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: linq-platform
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: LINQ Platform GitOps Project
+  
+  # Source repositories
+  sourceRepos:
+    - https://github.com/markwallsgrove/linq-platform
+    - https://github.com/automata-tech/*
+  
+  # Destination clusters and namespaces
+  destinations:
+    - namespace: dev-env-1
+      server: https://kubernetes.default.svc
+    - namespace: staging-env-1
+      server: https://kubernetes.default.svc
+    - namespace: production-env-1
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  
+  # Cluster resource whitelist
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+  
+  # Namespace resource whitelist
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: Secret
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ServiceAccount
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: ReplicaSet
+    - group: networking.k8s.io
+      kind: Ingress
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+    - group: policy
+      kind: PodDisruptionBudget
+    - group: monitoring.coreos.com
+      kind: ServiceMonitor
+  
+  # RBAC roles for different environments
+  roles:
+    - name: development-admin
+      description: Full access to development environment
+      policies:
+        - p, proj:linq-platform:development-admin, applications, *, linq-platform/dev-*, allow
+        - p, proj:linq-platform:development-admin, applications, sync, linq-platform/dev-*, allow
+        - p, proj:linq-platform:development-admin, applications, override, linq-platform/dev-*, allow
+        - p, proj:linq-platform:development-admin, applications, action/*, linq-platform/dev-*, allow
+      groups:
+        - linq-platform:developers
+    
+    - name: staging-admin
+      description: Full access to staging environment
+      policies:
+        - p, proj:linq-platform:staging-admin, applications, *, linq-platform/staging-*, allow
+        - p, proj:linq-platform:staging-admin, applications, sync, linq-platform/staging-*, allow
+        - p, proj:linq-platform:staging-admin, applications, override, linq-platform/staging-*, allow
+      groups:
+        - linq-platform:qa-team
+        - linq-platform:staging-admins
+    
+    - name: production-admin
+      description: Full access to production environment
+      policies:
+        - p, proj:linq-platform:production-admin, applications, *, linq-platform/production-*, allow
+        - p, proj:linq-platform:production-admin, applications, sync, linq-platform/production-*, allow
+        - p, proj:linq-platform:production-admin, applications, override, linq-platform/production-*, allow
+      groups:
+        - linq-platform:production-admins
+        - linq-platform:sre-team
+    
+    - name: readonly
+      description: Read-only access to all environments
+      policies:
+        - p, proj:linq-platform:readonly, applications, get, linq-platform/*, allow
+        - p, proj:linq-platform:readonly, applications, logs, linq-platform/*, allow
+      groups:
+        - linq-platform:viewers
+  
+  # Sync windows - maintenance windows for controlled deployments
+  syncWindows:
+    - kind: deny
+      schedule: '0 22 * * 0-4'  # Deny sync Sunday-Thursday 10 PM UTC (weekday evenings)
+      duration: 8h
+      applications:
+        - production-env-1-*
+      manualSync: true
+    
+    - kind: allow
+      schedule: '0 14 * * 1-5'  # Allow sync Monday-Friday 2 PM UTC (business hours)
+      duration: 4h
+      applications:
+        - production-env-1-*
+      manualSync: false
+  
+  # Signature keys for signed commits (if using signed commits)
+  signatureKeys:
+    - keyID: AAAA1111BBBB2222

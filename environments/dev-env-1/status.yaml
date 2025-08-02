@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-status
+  namespace: dev-env-1
+  labels:
+    environment: development
+    env-name: dev-env-1
+    platform: linq
+data:
+  environment.json: |
+    {
+      "id": "dev-env-1",
+      "name": "dev-env-1",
+      "type": "virtual",
+      "environmentType": "development",
+      "status": "running",
+      "creationTime": "2024-01-16T10:00:00Z",
+      "lastUpdated": "2024-02-01T14:30:00Z",
+      "bundle": {
+        "id": "dev-bundle-1",
+        "name": "Development Bundle v1.0.0",
+        "version": "1.0.0",
+        "type": "development",
+        "description": "Development bundle with latest development versions",
+        "creationTime": "2024-01-16T10:00:00Z",
+        "coreServices": {
+          "linqWorkcellManager": "2.1.0",
+          "linqOrchestrator": "3.2.1",
+          "linqServiceMetadataRepository": "1.5.0",
+          "linqWorkflow": "4.0.0",
+          "linqPlanner": "2.3.1",
+          "linqFrontend": "5.1.2",
+          "linqAggregator": "1.8.3"
+        },
+        "foundation": {
+          "platformVersion": "6.2.1"
+        },
+        "workcellServices": {
+          "linqMaestro": "2.7.1"
+        }
+      },
+      "health": {
+        "overall": "healthy",
+        "services": {
+          "linq-workcell-manager": "healthy",
+          "linq-orchestrator": "healthy",
+          "linq-service-metadata-repository": "healthy",
+          "linq-workflow": "healthy",
+          "linq-planner": "healthy",
+          "linq-frontend": "healthy",
+          "linq-aggregator": "healthy",
+          "linq-maestro": "healthy"
+        },
+        "lastCheckTime": "2024-02-01T14:30:00Z"
+      },
+      "deploymentInfo": {
+        "cluster": "dev-cluster",
+        "namespace": "dev-env-1",
+        "region": "us-west-2",
+        "replicaCount": 8,
+        "readyReplicas": 8
+      }
+    }

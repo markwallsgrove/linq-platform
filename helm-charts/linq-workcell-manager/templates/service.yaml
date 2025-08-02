@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "linq-workcell-manager.fullname" . }}
+  labels:
+    {{- include "linq-workcell-manager.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- if .Values.config.monitoring.enabled }}
+    - port: {{ .Values.config.monitoring.prometheusPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include "linq-workcell-manager.selectorLabels" . | nindent 4 }}

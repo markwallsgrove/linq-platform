@@ -1,0 +1,131 @@
+# Production Environment Values - production-env-1
+# Bundle Information
+bundle:
+  name: "Production Bundle v1.2.0"
+  type: "production"
+  description: "Production bundle with stable production versions"
+  creationTime: "2024-01-25T09:00:00Z"
+  
+# Service Versions (stable production versions)
+services:
+  linq-workcell-manager:
+    tag: "2.2.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+  
+  linq-orchestrator:
+    tag: "3.3.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+      limits:
+        cpu: 2000m
+        memory: 2Gi
+  
+  linq-service-metadata-repository:
+    tag: "1.6.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi
+  
+  linq-workflow:
+    tag: "4.1.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 600m
+        memory: 768Mi
+      limits:
+        cpu: 1200m
+        memory: 1536Mi
+  
+  linq-planner:
+    tag: "2.4.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 400m
+        memory: 512Mi
+      limits:
+        cpu: 800m
+        memory: 1Gi
+  
+  linq-frontend:
+    tag: "5.2.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi
+  
+  linq-aggregator:
+    tag: "1.9.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 400m
+        memory: 512Mi
+      limits:
+        cpu: 800m
+        memory: 1Gi
+
+# Foundation Platform Version
+foundation:
+  platform-version: "6.3.0"
+
+# Workcell Services
+workcellServices:
+  linq-maestro:
+    tag: "2.8.0"
+    replicas: 3
+    resources:
+      requests:
+        cpu: 800m
+        memory: 1Gi
+      limits:
+        cpu: 1600m
+        memory: 2Gi
+
+# Environment Configuration
+environment:
+  name: "production-env-1"
+  type: "production"
+  region: "us-west-2"
+  cluster: "production-cluster"
+  namespace: "production-env-1"
+  
+# Production specific settings
+config:
+  database:
+    size: "large"
+    replicas: 3
+  monitoring:
+    enabled: true
+    retention: "90d"
+  logging:
+    level: "warn"
+    retention: "30d"
+  ingress:
+    enabled: true
+    domain: "production-env-1.linq.io"
+    tls: true
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"
+    retention: "30d"

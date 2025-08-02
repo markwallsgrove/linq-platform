@@ -1,0 +1,127 @@
+# Development Environment Values - dev-env-1
+# Bundle Information
+bundle:
+  name: "Development Bundle v1.0.0"
+  type: "development"
+  description: "Development bundle with latest development versions"
+  creationTime: "2024-01-16T10:00:00Z"
+  
+# Service Versions (matching spec.md core services)
+services:
+  linq-workcell-manager:
+    tag: "2.1.0"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+  
+  linq-orchestrator:
+    tag: "3.2.1"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  
+  linq-service-metadata-repository:
+    tag: "1.5.0"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+  
+  linq-workflow:
+    tag: "4.0.0"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 150m
+        memory: 192Mi
+      limits:
+        cpu: 300m
+        memory: 384Mi
+  
+  linq-planner:
+    tag: "2.3.1"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Mi
+  
+  linq-frontend:
+    tag: "5.1.2"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+  
+  linq-aggregator:
+    tag: "1.8.3"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+
+# Foundation Platform Version
+foundation:
+  platform-version: "6.2.1"
+
+# Workcell Services
+workcellServices:
+  linq-maestro:
+    tag: "2.7.1"
+    replicas: 1
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi
+
+# Environment Configuration
+environment:
+  name: "dev-env-1"
+  type: "development"
+  region: "us-west-2"
+  cluster: "dev-cluster"
+  namespace: "dev-env-1"
+  
+# Development specific settings
+config:
+  database:
+    size: "small"
+    replicas: 1
+  monitoring:
+    enabled: true
+    retention: "7d"
+  logging:
+    level: "debug"
+    retention: "3d"
+  ingress:
+    enabled: true
+    domain: "dev-env-1.linq.dev"
+    tls: false

@@ -1,0 +1,89 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production-env-1-linq-platform
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    environment: production
+    env-name: production-env-1
+    platform: linq
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/markwallsgrove/linq-platform
+    targetRevision: HEAD
+    path: helm-charts/linq-workcell-manager
+    helm:
+      valueFiles:
+        - ../../environments/production-env-1/values.yaml
+      parameters:
+        - name: image.tag
+          value: "2.2.0"
+        - name: environment.name
+          value: "production-env-1"
+        - name: environment.type
+          value: "production"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production-env-1
+  syncPolicy:
+    # Production requires manual sync for safety
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 5m
+  revisionHistoryLimit: 20
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production-env-1-linq-orchestrator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    environment: production
+    env-name: production-env-1
+    platform: linq
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/markwallsgrove/linq-platform
+    targetRevision: HEAD
+    path: helm-charts/linq-orchestrator
+    helm:
+      valueFiles:
+        - ../../environments/production-env-1/values.yaml
+      parameters:
+        - name: image.tag
+          value: "3.3.0"
+        - name: environment.name
+          value: "production-env-1"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production-env-1
+  syncPolicy:
+    # Production requires manual sync for safety
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 5m

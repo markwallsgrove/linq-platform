@@ -1,0 +1,127 @@
+# Staging Environment Values - staging-env-1
+# Bundle Information
+bundle:
+  name: "Staging Bundle v1.1.0"
+  type: "staging"
+  description: "Staging bundle with tested staging versions"
+  creationTime: "2024-01-20T14:00:00Z"
+  
+# Service Versions (updated versions for staging)
+services:
+  linq-workcell-manager:
+    tag: "2.1.1"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  
+  linq-orchestrator:
+    tag: "3.2.2"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+  
+  linq-service-metadata-repository:
+    tag: "1.5.1"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+  
+  linq-workflow:
+    tag: "4.0.1"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 300m
+        memory: 384Mi
+      limits:
+        cpu: 600m
+        memory: 768Mi
+  
+  linq-planner:
+    tag: "2.3.2"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi
+  
+  linq-frontend:
+    tag: "5.1.3"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+  
+  linq-aggregator:
+    tag: "1.8.4"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 512Mi
+
+# Foundation Platform Version
+foundation:
+  platform-version: "6.2.2"
+
+# Workcell Services
+workcellServices:
+  linq-maestro:
+    tag: "2.7.2"
+    replicas: 2
+    resources:
+      requests:
+        cpu: 400m
+        memory: 512Mi
+      limits:
+        cpu: 800m
+        memory: 1Gi
+
+# Environment Configuration
+environment:
+  name: "staging-env-1"
+  type: "staging"
+  region: "us-west-2"
+  cluster: "staging-cluster"
+  namespace: "staging-env-1"
+  
+# Staging specific settings
+config:
+  database:
+    size: "medium"
+    replicas: 2
+  monitoring:
+    enabled: true
+    retention: "30d"
+  logging:
+    level: "info"
+    retention: "14d"
+  ingress:
+    enabled: true
+    domain: "staging-env-1.linq.dev"
+    tls: true

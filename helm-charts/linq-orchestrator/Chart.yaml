@@ -1,0 +1,16 @@
+apiVersion: v2
+name: linq-orchestrator
+description: A Helm chart for LINQ Orchestrator service
+type: application
+version: 0.1.0
+appVersion: "3.2.1"
+keywords:
+  - linq
+  - orchestrator
+  - microservice
+home: https://github.com/automata-tech/linq-orchestrator
+sources:
+  - https://github.com/automata-tech/linq-orchestrator
+maintainers:
+  - name: LINQ Platform Team
+    email: platform@automata-tech.com
