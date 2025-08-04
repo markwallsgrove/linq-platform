@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-status
+  namespace: foobar
+  labels:
+    environment: development
+    env-name: foobar
+    platform: linq
+data:
+  environment.json: |
+    {
+      "id": "1754324636405",
+      "name": "foobar",
+      "type": "virtual",
+      "environmentType": "development",
+      "status": "deploying",
+      "creationTime": "2025-08-04T16:23:56.405Z",
+      "lastUpdated": "2025-08-04T16:23:56.406Z"
+    }
