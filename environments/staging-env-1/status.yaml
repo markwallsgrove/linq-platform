@@ -15,50 +15,6 @@ data:
       "type": "virtual",
       "environmentType": "staging",
       "status": "running",
-      "creationTime": "2024-01-20T14:00:00Z",
-      "lastUpdated": "2024-02-01T16:45:00Z",
-      "bundle": {
-        "id": "staging-bundle-1",
-        "name": "Staging Bundle v1.1.0",
-        "version": "1.1.0",
-        "type": "staging",
-        "description": "Staging bundle with tested staging versions",
-        "creationTime": "2024-01-20T14:00:00Z",
-        "coreServices": {
-          "linqWorkcellManager": "2.1.1",
-          "linqOrchestrator": "3.2.2",
-          "linqServiceMetadataRepository": "1.5.1",
-          "linqWorkflow": "4.0.1",
-          "linqPlanner": "2.3.2",
-          "linqFrontend": "5.1.3",
-          "linqAggregator": "1.8.4"
-        },
-        "foundation": {
-          "platformVersion": "6.2.2"
-        },
-        "workcellServices": {
-          "linqMaestro": "2.7.2"
-        }
-      },
-      "health": {
-        "overall": "healthy",
-        "services": {
-          "linq-workcell-manager": "healthy",
-          "linq-orchestrator": "healthy",
-          "linq-service-metadata-repository": "healthy",
-          "linq-workflow": "healthy",
-          "linq-planner": "healthy",
-          "linq-frontend": "healthy",
-          "linq-aggregator": "healthy",
-          "linq-maestro": "healthy"
-        },
-        "lastCheckTime": "2024-02-01T16:45:00Z"
-      },
-      "deploymentInfo": {
-        "cluster": "staging-cluster",
-        "namespace": "staging-env-1",
-        "region": "us-west-2",
-        "replicaCount": 16,
-        "readyReplicas": 16
-      }
+      "creationTime": "2024-01-20T14:00:00.000Z",
+      "lastUpdated": "2025-08-04T15:16:30.551Z"
     }
